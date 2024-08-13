@@ -2,6 +2,9 @@
 
 import { Box, Button, Stack, TextField } from '@mui/material'
 import { useState, useRef, useEffect } from 'react'
+import useGooglePlatformScript from './googlesignin';
+import GoogleSignIn from './googlesignin';
+
 
 export default function Home() {
   const [messages, setMessages] = useState([
@@ -15,7 +18,7 @@ export default function Home() {
 
   const sendMessage = async () => {
 
-    if (!message.trim()) return;  // Don't send empty messages
+    if (!message.trim()) return;  
     if (!message.trim() || isLoading) return;
     setIsLoading(true)
     setMessage('')
@@ -40,7 +43,7 @@ export default function Home() {
   
       const reader = response.body.getReader()
       const decoder = new TextDecoder()
-  
+      
       while (true) {
         const { done, value } = await reader.read()
         if (done) break
@@ -102,6 +105,7 @@ export default function Home() {
           overflow="auto"
           maxHeight="100%"
         >
+          <GoogleSignIn></GoogleSignIn>
           {messages.map((message, index) => (
             <Box
               key={index}
